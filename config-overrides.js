@@ -5,7 +5,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 // webpack打包速度分析插件
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 const smp = new SpeedMeasurePlugin();
-
+// 开启gzip
+const productionGzipExtensions = ['js', 'css', 'json', 'txt'];
+const CompressionWebpackPlugin = require('compression-webpack-plugin'); //gzip压缩
+// cesium路径映射
 const cesiumSource = 'node_modules/cesium/Source';
 const cesiumWorkers = '../Build/Cesium/Workers';
 
@@ -33,28 +36,31 @@ const rewiredMap = () => (config) => {
 		}),
 		new webpack.DefinePlugin({
 			CESIUM_BASE_URL: JSON.stringify('./'),
+		}),
+		new CompressionWebpackPlugin({
+			test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),
+			threshold: 10240, // 对超过10k的数据压缩
+			deleteOriginalAssets: false, // 不删除源文件
 		})
 	);
 	return config;
 };
-module.exports = smp.wrap(
-	override(
-		fixBabelImports('import', {
-			libraryName: 'antd',
-			libraryDirectory: 'es',
-			style: 'css',
-		}),
-		addWebpackAlias({
-			'@': './src',
-			cesium$: 'cesium/Cesium',
-			cesium: 'cesium/Source',
-		}),
-		addLessLoader({
-			javascriptEnabled: true,
-			modifyVars: {},
-		}),
-		addDecoratorsLegacy(),
+module.exports = override(
+	fixBabelImports('import', {
+		libraryName: 'antd',
+		libraryDirectory: 'es',
+		style: 'css',
+	}),
+	addWebpackAlias({
+		'@': './src',
+		cesium$: 'cesium/Cesium',
+		cesium: 'cesium/Source',
+	}),
+	addLessLoader({
+		javascriptEnabled: true,
+		modifyVars: {},
+	}),
+	addDecoratorsLegacy(),
 
-		rewiredMap()
-	)
+	rewiredMap()
 );
