@@ -1,26 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import 'cesium/Widgets/widgets.css';
+import { Viewer } from 'cesium';
+class Test extends React.Component {
+	constructor(props: Readonly<{}>) {
+		super(props);
+		this.state = { date: new Date() };
+	}
+	componentDidMount() {
+		console.log('执行一');
+		new Viewer('cesiumContainer');
+	}
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	componentWillUnmount() {
+		console.log('执行二');
+	}
+	render() {
+		return <div id="cesiumContainer"></div>;
+	}
 }
 
-export default App;
+export default Test;
