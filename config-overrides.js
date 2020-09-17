@@ -3,6 +3,8 @@ const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+// 打包进度条
+const WebpackBar = require('webpackbar');
 // 生产环境去除注释
 const TerserPlugin = require('terser-webpack-plugin');
 // webpack 打包分析
@@ -22,8 +24,10 @@ const cesiumWorkers = '../Build/Cesium/Workers';
 const rewiredMap = () => (config) => {
 	console.log('=======>' + config.mode + '===========');
 	// config为所有的webpack配置
-	config.devtool = config.mode === 'development' ? 'cheap-module-source-map' : false; // 生产环境关闭sourcemap关闭
+	// config.devtool = config.mode === 'development' ? 'cheap-module-source-map' : false; // 生产环境关闭sourcemap关闭
+	config.devtool = config.mode === 'development' ? 'eval' : false; // 生产环境关闭sourcemap关闭
 	config.plugins.push(
+		new WebpackBar(),
 		new CopyWebpackPlugin({
 			patterns: [
 				{
@@ -59,6 +63,16 @@ const rewiredMap = () => (config) => {
 					drop_console: true,
 				},
 			},
+		}),
+		new webpack.optimize.SplitChunksPlugin({
+			// chunks: 'all',
+			// minSize: 20000,
+			// minChunks: 1,
+			// maxAsyncRequests: 5,
+			// maxInitialRequests: 3,
+			// name: true,
+			name: 'cesium',
+			minChunks: (module) => module.context && module.context.indexOf('cesium') !== -1,
 		})
 	);
 	return config;
