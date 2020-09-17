@@ -2,8 +2,13 @@ const { override, addLessLoader, fixBabelImports, addWebpackAlias, addDecorators
 const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+// webpack打包速度分析插件
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
+const smp = new SpeedMeasurePlugin();
+
 const cesiumSource = 'node_modules/cesium/Source';
 const cesiumWorkers = '../Build/Cesium/Workers';
+
 const rewiredMap = () => (config) => {
 	console.log('=======>' + config.mode + '===========');
 	// config为所有的webpack配置
@@ -32,22 +37,24 @@ const rewiredMap = () => (config) => {
 	);
 	return config;
 };
-module.exports = override(
-	fixBabelImports('import', {
-		libraryName: 'antd',
-		libraryDirectory: 'es',
-		style: 'css',
-	}),
-	addWebpackAlias({
-		'@': './src',
-		cesium$: 'cesium/Cesium',
-		cesium: 'cesium/Source',
-	}),
-	addLessLoader({
-		javascriptEnabled: true,
-		modifyVars: {},
-	}),
-	addDecoratorsLegacy(),
+module.exports = smp.wrap(
+	override(
+		fixBabelImports('import', {
+			libraryName: 'antd',
+			libraryDirectory: 'es',
+			style: 'css',
+		}),
+		addWebpackAlias({
+			'@': './src',
+			cesium$: 'cesium/Cesium',
+			cesium: 'cesium/Source',
+		}),
+		addLessLoader({
+			javascriptEnabled: true,
+			modifyVars: {},
+		}),
+		addDecoratorsLegacy(),
 
-	rewiredMap()
+		rewiredMap()
+	)
 );
