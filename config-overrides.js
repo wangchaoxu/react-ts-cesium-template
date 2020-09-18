@@ -24,8 +24,8 @@ const cesiumWorkers = '../Build/Cesium/Workers';
 const rewiredMap = () => (config) => {
 	console.log('=======>' + config.mode + '===========');
 	// config为所有的webpack配置
-	// config.devtool = config.mode === 'development' ? 'cheap-module-source-map' : false; // 生产环境关闭sourcemap关闭
-	config.devtool = config.mode === 'development' ? 'eval' : false; // 生产环境关闭sourcemap关闭
+	config.devtool = config.mode === 'development' ? 'cheap-module-source-map' : false; // 生产环境关闭sourcemap关闭
+	// config.devtool = config.mode === 'development' ? true : false; // 生产环境关闭sourcemap关闭
 	config.plugins.push(
 		new WebpackBar(),
 		new CopyWebpackPlugin({
@@ -46,35 +46,39 @@ const rewiredMap = () => (config) => {
 		}),
 		new webpack.DefinePlugin({
 			CESIUM_BASE_URL: JSON.stringify('./'),
-		}),
-		new CompressionWebpackPlugin({
-			test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),
-			threshold: 10240, // 对超过10k的数据压缩
-			deleteOriginalAssets: false, // 不删除源文件
-		}),
-		new TerserPlugin({
-			extractComments: true,
-			cache: true,
-			parallel: true,
-			sourceMap: true, // Must be set to true if using source-maps in production
-			terserOptions: {
-				extractComments: 'all',
-				compress: {
-					drop_console: true,
-				},
-			},
-		}),
-		new webpack.optimize.SplitChunksPlugin({
-			// chunks: 'all',
-			// minSize: 20000,
-			// minChunks: 1,
-			// maxAsyncRequests: 5,
-			// maxInitialRequests: 3,
-			// name: true,
-			name: 'cesium',
-			minChunks: (module) => module.context && module.context.indexOf('cesium') !== -1,
 		})
 	);
+	if (config.mode === 'production') {
+		config.plugins.push(
+			new CompressionWebpackPlugin({
+				test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),
+				threshold: 10240, // 对超过10k的数据压缩
+				deleteOriginalAssets: false, // 不删除源文件
+			}),
+			new TerserPlugin({
+				extractComments: true,
+				cache: true,
+				parallel: true,
+				sourceMap: true, // Must be set to true if using source-maps in production
+				terserOptions: {
+					extractComments: 'all',
+					compress: {
+						drop_console: true,
+					},
+				},
+			}),
+			new webpack.optimize.SplitChunksPlugin({
+				chunks: 'all',
+				minSize: 20000,
+				minChunks: 1,
+				maxAsyncRequests: 5,
+				maxInitialRequests: 3,
+				name: true,
+				// name: 'cesium',
+				// minChunks: (module) => module.context && module.context.indexOf('cesium') !== -1,
+			})
+		);
+	}
 	return config;
 };
 // dll配置
@@ -95,10 +99,6 @@ const addCustomize = () => (config) => {
 				// dll最终输出的目录
 				outputPath: './vendor',
 			})
-			// 释放 可以解析项目
-			// new BundleAnalyzerPlugin({
-			//     analyzerMode: 'static'
-			// })
 		);
 	}
 	return config;
@@ -111,8 +111,8 @@ const analyzerConfig = () => (config) => {
 				analyzerMode: 'static', //输出静态报告文件report.html，而不是启动一个web服务
 			})
 		);
-		return config;
 	}
+	return config;
 };
 const webpackConfig = override(
 	fixBabelImports('import', {
