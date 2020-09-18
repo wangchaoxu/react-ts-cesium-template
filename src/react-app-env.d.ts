@@ -9,17 +9,14 @@ declare namespace NodeJS {
     readonly PUBLIC_URL: string;
   }
 }
-
 declare module "*.bmp" {
   const src: string;
   export default src;
 }
-
 declare module "*.gif" {
   const src: string;
   export default src;
 }
-
 declare module "*.jpg" {
   const src: string;
   export default src;
