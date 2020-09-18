@@ -1623,6 +1623,11 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/cesium@^1.67.12":
+  version "1.67.12"
+  resolved "https://registry.npm.taobao.org/@types/cesium/download/@types/cesium-1.67.12.tgz#606598ca6ba4ff2989b5718309b2fa85a0abde4c"
+  integrity sha1-YGWYymuk/ymJtXGDCbL6haCr3kw=
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.npm.taobao.org/@types/color-name/download/@types/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
