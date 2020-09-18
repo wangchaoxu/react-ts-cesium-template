@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     node: true,
+    es6: true,
   },
   parser: "@typescript-eslint/parser", // 指定ESLint解析器
   extends: [
@@ -24,6 +25,7 @@ module.exports = {
     endOfLine: 0,
     "no-unused-vars": 0,
     "no-useless-escape": 0, //忽略转义字符验证
+    "import/no-unresolved": [2, { ignore: ["^@/"] }],
   },
   settings: {
     react: {

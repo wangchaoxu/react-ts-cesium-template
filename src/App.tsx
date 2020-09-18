@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import "./App.less";
 import "cesium/Widgets/widgets.css";
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import Index from "./views/Index";
