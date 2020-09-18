@@ -121,7 +121,7 @@ const webpackConfig = override(
     style: "css",
   }),
   addWebpackAlias({
-    "@": "./src",
+    "@": path.resolve(__dirname, "./src"),
     cesium$: "cesium/Cesium",
     cesium: "cesium/Source",
   }),
