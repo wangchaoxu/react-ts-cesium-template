@@ -2,13 +2,12 @@
  * @Author: wangchaoxu
  * @Date: 2020-07-21 09:07:12
  * @LastEditors: wangchaoxu
- * @LastEditTime: 2020-07-21 18:38:03
+ * @LastEditTime: 2020-09-24 16:23:13
  * @Description:关于视图的操作
  */
 
-import config from './config';
-import { cloneDeep } from './core';
-
+import { cloneDeep } from "./core";
+import { Viewer, Ion, Color, Math, ScreenSpaceEventType, Cartesian3 } from "cesium";
 function initViewer(config = {}) {
   let option = {
     //放大镜图标，查找位置工具，查找到之后会将镜头对准找到的地址，默认使用bing地图
@@ -37,21 +36,21 @@ function initViewer(config = {}) {
     CreditsDisplay: false,
     //关闭点击要素铝框
     selectionIndicator: false,
-    terrainExaggeration: 3.0 //地形夸大
+    terrainExaggeration: 3.0, //地形夸大
   };
   option = cloneDeep(option, config);
-  Cesium.Ion.defaultAccessToken = config.CESIUM_TOKEN;
-  let viewer = new Cesium.Viewer('cesiumContainer', option);
-  viewer.cesiumWidget._creditContainer.style.display = 'none'; //移除版权
+  Ion.defaultAccessToken = process.env.REACT_APP_CESIUM_TOKEN;
+  let viewer = new Viewer("cesiumContainer", option);
+  viewer.cesiumWidget._creditContainer.style.display = "none"; //移除版权
   viewer.scene.debugShowFramesPerSecond = true; //显示帧率
-  viewer.scene.backgroundColor = Cesium.Color.TRANSPARENT; //背景颜色
+  viewer.scene.backgroundColor = Color.TRANSPARENT; //背景颜色
   viewer.scene.postProcessStages.fxaa.enabled = false; // 抗锯齿
   viewer.scene.globe.showGroundAtmosphere = true; // 水雾特效
   // viewer.scene.requestRenderMode = true; //空闲状态下停止渲染
   // 设置最大俯仰角，[-90,0]区间内，默认为-30，单位弧度
-  viewer.scene.screenSpaceCameraController.constrainedPitch = Cesium.Math.toRadians(-20);
+  viewer.scene.screenSpaceCameraController.constrainedPitch = Math.toRadians(-20);
   // 取消默认的双击事件
-  viewer.cesiumWidget.screenSpaceEventHandler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
+  viewer.cesiumWidget.screenSpaceEventHandler.removeInputAction(ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
   viewer.scene.screenSpaceCameraController.minimumZoomDistance = 3000; //相机的高度的最小值,放大时使用
   viewer.scene.screenSpaceCameraController.maximumZoomDistance = 40489014; //相机高度的最大值,缩小操作时用
   viewer.scene.screenSpaceCameraController._minimumZoomRate = 30000; // 设置相机缩小时的速率
@@ -65,7 +64,7 @@ function initViewer(config = {}) {
  * @author: wangchaoxu
  */
 function flyTo(viewer, coordinate) {
-  viewer.camera.flyTo({ destination: Cesium.Cartesian3.fromDegrees(103.84, 31.15, 5050000) });
+  viewer.camera.flyTo({ destination: Cartesian3.fromDegrees(103.84, 31.15, 5050000) });
 }
 
 export { initViewer, flyTo };

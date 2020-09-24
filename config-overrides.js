@@ -36,6 +36,7 @@ const webpackConfig = override(
   }),
   (config) => {
     console.log("=======>" + config.mode + "===========");
+    console.log(process.env.NODE_ENV);
     // config为所有的webpack配置
     config.devtool = config.mode === "development" ? "cheap-module-source-map" : false; // 生产环境关闭sourcemap关闭
     config.plugins.push(

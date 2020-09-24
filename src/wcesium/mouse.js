@@ -2,11 +2,11 @@
  * @Author: wangchaoxu
  * @Date: 2020-07-20 17:46:37
  * @LastEditors: wangchaoxu
- * @LastEditTime: 2020-09-24 14:46:20
+ * @LastEditTime: 2020-09-24 16:16:44
  * @Description:鼠标事件
  */
 import { isFunction } from "./core.js";
-import { ScreenSpaceEventHandler, ScreenSpaceEventType } from "cesium";
+import { ScreenSpaceEventHandler, ScreenSpaceEventType, defined } from "cesium";
 /**
  * @description: 左键点击获取实体对象
  * @param {type}
@@ -20,7 +20,7 @@ function leftSingleClick(viewer, callback) {
     var cartesian = viewer.camera.pickEllipsoid(click.position, viewer.scene.globe.ellipsoid);
     if (cartesian) {
       var pickdObject = scene.pick(click.position);
-      if (Cesium.defined(pickdObject)) {
+      if (defined(pickdObject)) {
         if (isFunction(callback)) {
           callback(pickdObject);
         }

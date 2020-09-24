@@ -2,12 +2,13 @@
  * @Author: wangchaoxu
  * @Date: 2020-07-20 16:15:06
  * @LastEditors: wangchaoxu
- * @LastEditTime: 2020-07-21 11:03:05
+ * @LastEditTime: 2020-09-24 16:21:44
  * @Description:实体的增删改查
  */
-import { cloneDeep, isFunction } from './core';
-import { leftSingleClick } from './mouse';
-import { for2 } from './core';
+import { cloneDeep, isFunction } from "./core";
+import { leftSingleClick } from "./mouse";
+import { for2 } from "./core";
+import { Cartesian3, Cartesian2, HorizontalOrigin, VerticalOrigin, LabelStyle, Color, HeightReference } from "cesium";
 /**
  * @description: 添加广告牌和label结合的标记
  * @param {Object} viewer对象
@@ -16,25 +17,25 @@ import { for2 } from './core';
  */
 function addMarker(viewer, option) {
   let config = {
-    position: Cesium.Cartesian3.fromDegrees(111.938902, 34.700877, 0),
-    name: 'marker',
+    position: Cartesian3.fromDegrees(111.938902, 34.700877, 0),
+    name: "marker",
     billboard: {
-      image: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=706556033,4228383680&fm=26&gp=0.jpg',
-      pixelOffset: new Cesium.Cartesian2(0, 0),
-      eyeOffset: new Cesium.Cartesian3(0.0, 0.0, 0.0),
-      horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
-      verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+      image: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=706556033,4228383680&fm=26&gp=0.jpg",
+      pixelOffset: new Cartesian2(0, 0),
+      eyeOffset: new Cartesian3(0.0, 0.0, 0.0),
+      horizontalOrigin: HorizontalOrigin.CENTER,
+      verticalOrigin: VerticalOrigin.BOTTOM,
       width: 32,
-      height: 32
+      height: 32,
     },
     label: {
-      text: 'Citizens Bank Park',
-      font: '14pt monospace',
-      style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+      text: "Citizens Bank Park",
+      font: "14pt monospace",
+      style: LabelStyle.FILL_AND_OUTLINE,
       outlineWidth: 2,
-      verticalOrigin: Cesium.VerticalOrigin.TOP,
-      pixelOffset: new Cesium.Cartesian2(0, 32)
-    }
+      verticalOrigin: VerticalOrigin.TOP,
+      pixelOffset: new Cartesian2(0, 32),
+    },
   };
   option = cloneDeep(config, option);
   let entity = viewer.entities.add(option);
@@ -50,29 +51,29 @@ function addMarker(viewer, option) {
 function addLabel(viewer, option) {
   console.log(viewer.entities);
   let config = {
-    data: 'label',
-    name: '标注',
-    position: Cesium.Cartesian3.fromDegrees(111.938902, 33.700877, 0),
+    data: "label",
+    name: "标注",
+    position: Cartesian3.fromDegrees(111.938902, 33.700877, 0),
     label: {
-      text: '测试',
-      font: '15px sans-serif',
-      style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+      text: "测试",
+      font: "15px sans-serif",
+      style: LabelStyle.FILL_AND_OUTLINE,
       outlineWidth: 2,
-      outlineColor: Cesium.Color.BLACK,
-      fillColor: Cesium.Color.RED,
+      outlineColor: Color.BLACK,
+      fillColor: Color.RED,
       showBackground: true,
-      backgroundColor: Cesium.Color.BLACK
+      backgroundColor: Color.BLACK,
     },
     width: 20, // default: undefined
     height: 20, // default: undefined
-    pixelOffset: new Cesium.Cartesian2(0, 0) // default: (0, 0)
+    pixelOffset: new Cartesian2(0, 0), // default: (0, 0)
   };
   option = cloneDeep(config, option);
   let label = viewer.entities.add(option);
   return label;
 }
 /**
- * @description: 添加广告牌,广告牌是一种始终面向用户的标记
+ *  添加广告牌,广告牌是一种始终面向用户的标记
  * @param {Object}viewer 地图的viewer对象
  * @param {Object}option 配置属性
  * @return:
@@ -80,12 +81,12 @@ function addLabel(viewer, option) {
  */
 function addBillboard(viewer, option) {
   let config = {
-    name: 'billboard',
-    data: '',
-    position: Cesium.Cartesian3.fromDegrees(111.838902, 33.800877, 0),
+    name: "billboard",
+    data: "",
+    position: Cartesian3.fromDegrees(111.838902, 33.800877, 0),
     billboard: {
       // show: false,
-      image: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=706556033,4228383680&fm=26&gp=0.jpg',
+      image: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=706556033,4228383680&fm=26&gp=0.jpg",
       // pixelOffset: new Cesium.Cartesian2(0, 0),
       // eyeOffset: new Cesium.Cartesian3(0.0, 0.0, 0.0),
       // horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
@@ -93,19 +94,19 @@ function addBillboard(viewer, option) {
       // width: 32,
       // height: 32,
 
-      heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+      heightReference: HeightReference.CLAMP_TO_GROUND,
       verticalOrigin: 0,
       width: 32,
       height: 145,
-      pixelOffset: new Cesium.Cartesian2(0, -72)
-    }
+      pixelOffset: new Cartesian2(0, -72),
+    },
   };
   option = cloneDeep(config, option);
   let billboard = viewer.entities.add(option);
   return billboard;
 }
 /**
- * @description: 获取所有实体
+ * 获取所有实体
  * @param {Object} viewer viewer对象
  * @return: {Object} entities实体对象
  * @author: wangchaoxu
@@ -115,7 +116,7 @@ function getAllEntities(viewer) {
   return entitys;
 }
 /**
- * @description: 根据属性获取实体
+ * 根据属性获取实体
  * @param {Object} viewer viewer对象
  * @param {String} attr   获取时的参照属性
  * @param {String} val    获取时的参照属性值
@@ -123,11 +124,10 @@ function getAllEntities(viewer) {
  * @author: wangchaoxu
  */
 function getEntitysByAttr(viewer, attr, val) {
-  // console.log(arguments);
-  if (!attr) throw '请设置删除时的参照属性';
-  if (!val) throw '请设置删除时的参照属性值';
+  if (!attr) throw "请设置删除时的参照属性";
+  if (!val) throw "请设置删除时的参照属性值";
   let entities = getAllEntities(viewer);
-  return entities.filter(item => item[attr] == val);
+  return entities.filter((item) => item[attr] == val);
 }
 /**
  * @description:
@@ -147,13 +147,13 @@ function removeAllEntities(viewer) {
  */
 function removeEntitiesByAttr(viewer, attr, val) {
   const layers = getAllEntities(viewer);
-  for2(layers, item => {
+  for2(layers, (item) => {
     if (item[attr] === val) viewer.entities.remove(item);
   });
 }
 
 function clickGetEntitties(viewer, callback) {
-  leftSingleClick(viewer, function(pickdObject) {
+  leftSingleClick(viewer, function (pickdObject) {
     if (isFunction(callback)) {
       callback(pickdObject.id);
     }
@@ -161,7 +161,7 @@ function clickGetEntitties(viewer, callback) {
 }
 
 function clickRemoveEntities(viewer) {
-  leftSingleClick(viewer, function(pickdObject) {
+  leftSingleClick(viewer, function (pickdObject) {
     viewer.entities.removeById(pickdObject.id._id);
   });
 }

@@ -2,11 +2,10 @@
  * @Author: wangchaoxu
  * @Date: 2020-07-16 16:47:59
  * @LastEditors: wangchaoxu
- * @LastEditTime: 2020-09-24 15:36:59
+ * @LastEditTime: 2020-09-24 16:15:15
  * @Description:图层添加
  */
 //需要安装@dvgis/cesium-map,然后在mian.js中引入 import('@dvgis/cesium-map/build/cesium-map/cesium-map.min');
-import config from "./config";
 import { for2 } from "./core";
 global.Cesium = require("cesium");
 const { TdtImageryProvider } = require("w-cesium-basemap");
@@ -23,14 +22,14 @@ function addLayer(viewer) {
     layer: "img_w",
     type: "img",
     name: "图层",
-    key: config.TIANDITU_KAY,
+    key: process.env.REACT_APP_TIANDITU_KAY,
   };
   viewer.imageryLayers.addImageryProvider(new TdtImageryProvider(imgLayer));
   var ciaLayer = {
     layer: "cia_w",
     style: "default",
     type: "cia",
-    key: config.TIANDITU_KAY,
+    key: process.env.REACT_APP_TIANDITU_KAY,
   };
   viewer.imageryLayers.addImageryProvider(new TdtImageryProvider(ciaLayer));
 }

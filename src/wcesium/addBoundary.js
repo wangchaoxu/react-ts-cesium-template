@@ -2,10 +2,10 @@
  * @Author: wangchaoxu
  * @Date: 2020-07-16 17:00:16
  * @LastEditors: wangchaoxu
- * @LastEditTime: 2020-09-24 14:41:17
+ * @LastEditTime: 2020-09-24 16:25:40
  * @Description:添加边界线
  */
-import { GeoJsonDataSource, Color } from "cesium";
+import { GeoJsonDataSource, Color, PolylineGlowMaterialProperty } from "cesium";
 function addBoundary(viewer, url) {
   let promise = viewer.dataSources.add(
     GeoJsonDataSource.load(url, {
@@ -23,9 +23,9 @@ function addBoundary(viewer, url) {
       //这样循环添加的方法,数据打了会慢,没有找到其他什么好的方法,建议对json数据进行优化
       var r = entities[o];
       r.polyline.width = 10; //添加默认样式
-      r.polyline.material = new Cesium.PolylineGlowMaterialProperty({
+      r.polyline.material = new PolylineGlowMaterialProperty({
         glowPower: 0.1, //一个数字属性，指定发光强度，占总线宽的百分比。
-        color: Cesium.Color.DODGERBLUE.withAlpha(0.9),
+        color: Color.DODGERBLUE.withAlpha(0.9),
       });
     }
   });

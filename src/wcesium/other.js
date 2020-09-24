@@ -2,9 +2,9 @@
  * @Author: wangchaoxu
  * @Date: 2020-07-20 19:13:02
  * @LastEditors: wangchaoxu
- * @LastEditTime: 2020-09-24 14:42:33
+ * @LastEditTime: 2020-09-24 16:25:59
  * @Description: cesium的扩展功能
- */ import { GeoJsonDataSource, Rectangle, Color, Math, Cartesian2, Cartesian3 } from "cesium";
+ */ import { Rectangle, Math, Cartesian2, Cartesian3, defined } from "cesium";
 import CesiumNavigation from "cesium-navigation-es6";
 import { isFunction } from "./core";
 import { mouseMove } from "./mouse";
@@ -51,7 +51,7 @@ function infoWindow(viewer, htmlOverlay, lng, lat, height = 50) {
   let event = viewer.scene.preRender.addEventListener(() => {
     var position = Cartesian3.fromDegrees(lng, lat, height);
     var canvasPosition = viewer.scene.cartesianToCanvasCoordinates(position, scratch);
-    if (Cesium.defined(canvasPosition)) {
+    if (defined(canvasPosition)) {
       htmlOverlay.style.top = canvasPosition.y + "px";
       htmlOverlay.style.left = canvasPosition.x + "px";
     }

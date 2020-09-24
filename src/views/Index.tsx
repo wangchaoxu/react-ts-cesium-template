@@ -1,7 +1,6 @@
 import React from "react";
 import "cesium/Widgets/widgets.css";
-import { Viewer } from "cesium";
-import { addLayer } from "../wcesium/layer.js";
+import { initViewer, addLayer, addNav } from "../wcesium";
 class Test extends React.Component {
   constructor(props: Readonly<{}>) {
     super(props);
@@ -9,8 +8,9 @@ class Test extends React.Component {
   }
   componentDidMount() {
     console.log("执行一");
-    const viewer = new Viewer("cesiumContainer");
+    const viewer = initViewer("cesiumContainer");
     addLayer(viewer);
+    addNav(viewer);
   }
   componentWillUnmount() {
     console.log("执行二");
