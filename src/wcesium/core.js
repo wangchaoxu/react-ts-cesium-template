@@ -13,19 +13,19 @@
  */
 function type(value) {
   let type = typeof value;
-  if (type !== 'object') {
+  if (type !== "object") {
     return type;
   }
-  return Object.prototype.toString.call(value).replace(/^\[object (\S+)\]$/, '$1');
+  return Object.prototype.toString.call(value).replace(/^\[object (\S+)\]$/, "$1");
 }
-export const isString = value => type(value) === 'String';
-export const isNumber = value => type(value) === 'Number';
-export const isObject = value => type(value) === 'Object';
-export const isFunction = value => type(value) === 'function';
-export const isArray = value => type(value) === 'Array';
-export const isNull = value => type(value) === 'Null';
-export const isUndefined = value => type(value) === 'Undefined';
-export const isTrue = value => type(value) !== 'Null' && type(value) !== 'Undefined';
+export const isString = (value) => type(value) === "String";
+export const isNumber = (value) => type(value) === "Number";
+export const isObject = (value) => type(value) === "Object";
+export const isFunction = (value) => type(value) === "function";
+export const isArray = (value) => type(value) === "Array";
+export const isNull = (value) => type(value) === "Null";
+export const isUndefined = (value) => type(value) === "Undefined";
+export const isTrue = (value) => type(value) !== "Null" && type(value) !== "Undefined";
 
 /**
  * @description: 深克隆
@@ -36,7 +36,7 @@ export const isTrue = value => type(value) !== 'Null' && type(value) !== 'Undefi
  */
 export function cloneDeep(obj1, obj2) {
   for (var key in obj2) {
-    obj1[key] = obj1[key] && obj1[key].toString() === '[object Object]' ? this.deepAssign(obj1[key], obj2[key]) : (obj1[key] = obj2[key]);
+    obj1[key] = obj1[key] && obj1[key].toString() === "[object Object]" ? this.deepAssign(obj1[key], obj2[key]) : (obj1[key] = obj2[key]);
   }
   return obj1;
 }

@@ -2,7 +2,7 @@
  * @Author: wangchaoxu
  * @Date: 2020-07-16 16:47:59
  * @LastEditors: wangchaoxu
- * @LastEditTime: 2020-09-24 16:15:15
+ * @LastEditTime: 2020-09-24 16:30:41
  * @Description:图层添加
  */
 //需要安装@dvgis/cesium-map,然后在mian.js中引入 import('@dvgis/cesium-map/build/cesium-map/cesium-map.min');
@@ -52,7 +52,7 @@ function getAllLayer(viewer) {
  */
 function getLayerByAttr(viewer, attr, val) {
   const layers = getAllLayer(viewer);
-  return layers.filter((item) => item[attr] == val);
+  return layers.filter((item) => item[attr] === val);
 }
 
 /**

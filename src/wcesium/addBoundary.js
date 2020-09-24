@@ -2,7 +2,7 @@
  * @Author: wangchaoxu
  * @Date: 2020-07-16 17:00:16
  * @LastEditors: wangchaoxu
- * @LastEditTime: 2020-09-24 16:25:40
+ * @LastEditTime: 2020-09-24 17:31:48
  * @Description:添加边界线
  */
 import { GeoJsonDataSource, Color, PolylineGlowMaterialProperty } from "cesium";
@@ -32,4 +32,4 @@ function addBoundary(viewer, url) {
   viewer.flyTo(promise);
 }
 
-export default addBoundary;
+export { addBoundary };

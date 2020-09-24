@@ -1,6 +1,6 @@
 import React from "react";
 import "cesium/Widgets/widgets.css";
-import { initViewer, addLayer, addNav } from "../wcesium";
+import { initViewer, addLayer, addNav } from "../wcesium/index";
 class Test extends React.Component {
   constructor(props: Readonly<{}>) {
     super(props);

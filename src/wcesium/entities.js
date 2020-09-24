@@ -2,7 +2,7 @@
  * @Author: wangchaoxu
  * @Date: 2020-07-20 16:15:06
  * @LastEditors: wangchaoxu
- * @LastEditTime: 2020-09-24 16:21:44
+ * @LastEditTime: 2020-09-24 16:31:23
  * @Description:实体的增删改查
  */
 import { cloneDeep, isFunction } from "./core";
@@ -124,10 +124,10 @@ function getAllEntities(viewer) {
  * @author: wangchaoxu
  */
 function getEntitysByAttr(viewer, attr, val) {
-  if (!attr) throw "请设置删除时的参照属性";
-  if (!val) throw "请设置删除时的参照属性值";
+  if (!attr) console.warn("请设置删除时的参照属性");
+  if (!val) console.warn("请设置删除时的参照属性");
   let entities = getAllEntities(viewer);
-  return entities.filter((item) => item[attr] == val);
+  return entities.filter((item) => item[attr] === val);
 }
 /**
  * @description:
