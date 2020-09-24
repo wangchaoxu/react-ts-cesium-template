@@ -34,5 +34,6 @@ module.exports = {
   },
   globals: {
     AMap: true,
+    Cesium: true,
   },
 };

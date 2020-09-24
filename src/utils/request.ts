@@ -2,7 +2,7 @@
  * @Author: wangchaoxu
  * @Date: 2020-08-11 10:35:13
  * @LastEditors: wangchaoxu
- * @LastEditTime: 2020-09-18 17:59:44
+ * @LastEditTime: 2020-09-24 12:35:19
  * @Description:
  */
 import axios from "axios";
@@ -49,18 +49,6 @@ const httpCode: any = {
   502: "网关错误",
   504: "网关超时",
 };
-// enum httpCode {
-//   //这里我简单列出一些常见的http状态码信息，可以自己去调整配置
-//   400 = '请求参数错误',
-//   401 = '权限不足, 请重新登录',
-//   403 = '服务器拒绝本次访问',
-//   404 = '请求资源未找到',
-//   405 = '请求方法错误',
-//   500 = '内部服务器错误',
-//   501 = '服务器不支持该请求中使用的方法',
-//   502 = '网关错误',
-//   504 = '网关超时'
-// }
 // 响应拦截器
 service.interceptors.response.use(
   (response) => {
